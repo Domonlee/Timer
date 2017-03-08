@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
+
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,16 +31,22 @@ public class RecordActivity extends AppCompatActivity {
     @OnClick(R.id.record_start_iv)
         // TODO: 2017/3/8 这里有问题，不应该是三个状态，使用两个状态也是OK，其次注意count数字的保存
     void onClickStart() {
+        Logger.e("mRecordState = " + mRecordState);
         switch (mRecordState) {
             case RECORD_STATE_INIT:
+                mTimer = new Timer();
                 mTimer.schedule(mTimerTask, 0, 1000);
                 mRecordStartIv.setImageResource(R.mipmap.pause);
                 mRecordState = RECORD_STATE_PAUSE;
                 break;
             case RECORD_STATE_PAUSE:
                 mTimer.cancel();
+                mRecordState = RECORD_STATE_RESTART;
                 break;
             case RECORD_STATE_RESTART:
+                mTimer = new Timer();
+                mTimer.schedule(mTimerTask,0,1000);
+                mRecordState = RECORD_STATE_INIT;
                 break;
             default:
                 break;
@@ -47,8 +55,9 @@ public class RecordActivity extends AppCompatActivity {
 
     @OnClick(R.id.record_cancel_iv)
     void onClickCancel() {
-        mTimer.cancel();
+        mTimerTask.cancel();
         mRecordStartIv.setImageResource(R.mipmap.start);
+        mTimerTv.setText("00:00");
 
         mRecordState = RECORD_STATE_RESTART;
     }
