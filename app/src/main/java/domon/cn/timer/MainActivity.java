@@ -1,5 +1,6 @@
 package domon.cn.timer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity
 
     @OnClick(R.id.start_btn)
     void onClickStartBtn(){
-        Toast.makeText(this,"xxxx",Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this,RecordActivity.class));
     }
 
     @Override
