@@ -6,13 +6,22 @@
     android:background="#237EAD"
     tools:context="domon.cn.timer.RecordActivity">
 
+    <ImageView
+        android:id="@+id/record_cancel_iv"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="8dp"
+        android:src="@mipmap/close" />
+
     <TextView
         android:id="@+id/timer_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
-        android:text="00:00:00"
+        android:text="00:00"
         android:textColor="#fff"
         android:textSize="100sp" />
 
@@ -32,10 +41,10 @@
             android:src="@mipmap/start" />
 
         <ImageView
-            android:id="@+id/record_cancel_iv"
+            android:id="@+id/record_finish_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/close" />
+            android:src="@mipmap/ic_launcher" />
     </LinearLayout>
 </RelativeLayout>

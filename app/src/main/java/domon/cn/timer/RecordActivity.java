@@ -4,22 +4,30 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.ToDoubleBiFunction;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 记录时间界面
+ *
+ * @author Domon
+ */
+
 public class RecordActivity extends AppCompatActivity {
-    public static final int RECORD_STATE_INIT = 0;
-    public static final int RECORD_STATE_RESTART = 1;
-    public static final int RECORD_STATE_PAUSE = 2;
-    public static final int RECORD_STATE_STOP = 3;
+    private Timer mTimer;
+    private TimerTask mTimerTask;
+    private int mCount = 0;
+    private boolean isPause = false;
 
     @Bind(R.id.timer_tv)
     TextView mTimerTv;
@@ -27,45 +35,36 @@ public class RecordActivity extends AppCompatActivity {
     ImageView mRecordStartIv;
     @Bind(R.id.record_cancel_iv)
     ImageView mRecordCancelIv;
+    @Bind(R.id.record_finish_iv)
+    ImageView mRecordFinishIv;
 
     @OnClick(R.id.record_start_iv)
-        // TODO: 2017/3/8 这里有问题，不应该是三个状态，使用两个状态也是OK，其次注意count数字的保存
     void onClickStart() {
-        Logger.e("mRecordState = " + mRecordState);
-        switch (mRecordState) {
-            case RECORD_STATE_INIT:
-                mTimer = new Timer();
-                mTimer.schedule(mTimerTask, 0, 1000);
-                mRecordStartIv.setImageResource(R.mipmap.pause);
-                mRecordState = RECORD_STATE_PAUSE;
-                break;
-            case RECORD_STATE_PAUSE:
-                mTimer.cancel();
-                mRecordState = RECORD_STATE_RESTART;
-                break;
-            case RECORD_STATE_RESTART:
-                mTimer = new Timer();
-                mTimer.schedule(mTimerTask,0,1000);
-                mRecordState = RECORD_STATE_INIT;
-                break;
-            default:
-                break;
+        if (isPause) {
+            Logger.i("Resume");
+            mRecordStartIv.setImageResource(R.mipmap.pause);
+        } else {
+            Logger.i("Pause");
+            mRecordStartIv.setImageResource(R.mipmap.start);
         }
+
+        isPause = !isPause;
     }
+
+    @OnClick(R.id.record_finish_iv)
+    void onClickFinish() {
+        // TODO: 2017/3/9 添加跳转,数据需要传递到下一个界面
+        Logger.d(mCount);
+        Toast.makeText(this, getTime(mCount), Toast.LENGTH_LONG).show();
+        stopTimer();
+    }
+
 
     @OnClick(R.id.record_cancel_iv)
     void onClickCancel() {
-        mTimerTask.cancel();
-        mRecordStartIv.setImageResource(R.mipmap.start);
-        mTimerTv.setText("00:00");
-
-        mRecordState = RECORD_STATE_RESTART;
+        stopTimer();
+        finish();
     }
-
-    private Timer mTimer;
-    private TimerTask mTimerTask;
-    private int mRecordState = 0;
-    private int mCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,26 +73,48 @@ public class RecordActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        initTimer();
+        startTimer();
     }
 
-    private void initTimer() {
-        mTimer = new Timer();
+    private void startTimer() {
+        if (mTimer == null) {
+            mTimer = new Timer();
+        }
 
-        mTimerTask = new TimerTask() {
-            int count = 0;
+        if (mTimerTask == null) {
+            mTimerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!isPause) {
+                                mCount++;
+                                mTimerTv.setText(getTime(mCount));
+                            }
+                        }
+                    });
+                }
+            };
+        }
 
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mTimerTv.setText(getTime(count++));
-                        mCount = count;
-                    }
-                });
-            }
-        };
+        if (mTimer != null && mTimerTask != null) {
+            mRecordStartIv.setImageResource(R.mipmap.pause);
+            mTimer.schedule(mTimerTask, 0, 1000);
+        }
+    }
+
+    private void stopTimer() {
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+        }
+
+        if (mTimerTask != null) {
+            mTimerTask.cancel();
+            mTimerTask = null;
+        }
+        mCount = 0;
     }
 
     private String getTime(int count) {
@@ -111,5 +132,6 @@ public class RecordActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        stopTimer();
     }
 }
