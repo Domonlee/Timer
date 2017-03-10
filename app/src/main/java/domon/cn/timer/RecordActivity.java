@@ -53,10 +53,11 @@ public class RecordActivity extends AppCompatActivity {
 
     @OnClick(R.id.record_finish_iv)
     void onClickFinish() {
-        // TODO: 2017/3/9 添加跳转,数据需要传递到下一个界面
         Logger.d(mCount);
         Toast.makeText(this, getTime(mCount), Toast.LENGTH_LONG).show();
+        RecordSaveActivity.actionStart(RecordActivity.this, getTime(mCount));
         stopTimer();
+        finish();
     }
 
 
