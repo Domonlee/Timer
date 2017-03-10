@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="domon.cn.timer.CategoriesActivity">
+
+    <com.robertlevonyan.views.chip.Chip
+        android:id="@+id/chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundColor="#b13c3c"
+        app:chipIcon="@mipmap/ic_launcher_round"
+        app:hasIcon="true"
+        app:chipText="Work"
+        app:selectable="true"
+        app:selectedBackgroundColor="#3ee" />
+
+</LinearLayout>

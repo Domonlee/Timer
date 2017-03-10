@@ -25,6 +25,10 @@
         <activity
             android:name=".RecordSaveActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CategoriesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

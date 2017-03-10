@@ -27,7 +27,7 @@ public class RecordSaveActivity extends AppCompatActivity {
 
     @OnClick(R.id.save_tags_tv)
     void onClickTags() {
-        Logger.i("Add Tags");
+        CategoriesActivity.actionStart(RecordSaveActivity.this);
     }
 
     @OnClick(R.id.save_submit_iv)
