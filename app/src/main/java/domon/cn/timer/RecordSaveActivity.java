@@ -1,8 +1,10 @@
 package domon.cn.timer;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +38,7 @@ public class RecordSaveActivity extends AppCompatActivity {
 
     @OnClick(R.id.save_close_iv)
     void onClickClose() {
-        finish();
+        showAlert();
     }
 
 
@@ -57,6 +59,21 @@ public class RecordSaveActivity extends AppCompatActivity {
         mRecordTime = i.getStringExtra("RecordTime");
 
         mTimeTv.setText(mRecordTime);
+    }
+
+    private void showAlert() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("确认退出嘛？");
+        builder.setMessage("您打算放弃本次记录嘛？");
+        builder.setNegativeButton("取消", null);
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+
+        builder.show();
     }
 
     @Override

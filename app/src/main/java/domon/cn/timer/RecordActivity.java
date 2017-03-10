@@ -1,6 +1,10 @@
 package domon.cn.timer;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,7 +15,6 @@ import com.orhanobut.logger.Logger;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.ToDoubleBiFunction;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,6 +24,7 @@ import butterknife.OnClick;
  * 记录时间界面
  *
  * @author Domon
+ *         todo alert close
  */
 
 public class RecordActivity extends AppCompatActivity {
@@ -63,8 +67,13 @@ public class RecordActivity extends AppCompatActivity {
 
     @OnClick(R.id.record_cancel_iv)
     void onClickCancel() {
-        stopTimer();
-        finish();
+        showAlert();
+        onClickStart();
+    }
+
+    public static void actionStart(Context context) {
+        Intent i = new Intent(context, RecordActivity.class);
+        context.startActivity(i);
     }
 
     @Override
@@ -134,5 +143,26 @@ public class RecordActivity extends AppCompatActivity {
         super.onDestroy();
         ButterKnife.unbind(this);
         stopTimer();
+    }
+
+    private void showAlert() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("确认退出嘛？");
+        builder.setMessage("您打算放弃本次记录嘛？");
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                onClickStart();
+            }
+        });
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+
+        builder.show();
+
     }
 }

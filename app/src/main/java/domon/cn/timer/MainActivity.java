@@ -1,6 +1,5 @@
 package domon.cn.timer;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,8 +24,8 @@ public class MainActivity extends AppCompatActivity
     Button mStartBtn;
 
     @OnClick(R.id.start_btn)
-    void onClickStartBtn(){
-        startActivity(new Intent(this,RecordActivity.class));
+    void onClickStartBtn() {
+        RecordActivity.actionStart(this);
     }
 
     @Override
