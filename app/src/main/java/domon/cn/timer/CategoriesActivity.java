@@ -4,24 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Toast;
-
-import com.orhanobut.logger.Logger;
-import com.robertlevonyan.views.chip.Chip;
-import com.robertlevonyan.views.chip.OnChipClickListener;
-import com.robertlevonyan.views.chip.OnSelectClickListener;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * todo 添加分类
- */
-
 public class CategoriesActivity extends AppCompatActivity {
-    @Bind(R.id.chip)
-    Chip mChip;
+    @Bind(R.id.categroy_rv)
+    RecyclerView mCategroiesRv;
+    private CategoriesAdapter mRecyelerViewAdapter;
 
     public static void actionStart(Context context) {
         Intent i = new Intent(context, CategoriesActivity.class);
@@ -35,20 +27,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mChip.setOnChipClickListener(new OnChipClickListener() {
-            @Override
-            public void onChipClick(View v) {
-                Toast.makeText(CategoriesActivity.this, "Good", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mChip.setOnSelectClickListener(new OnSelectClickListener() {
-            @Override
-            public void onSelectClick(View v, boolean selected) {
-                Logger.i("select");
-
-            }
-        });
+        mRecyelerViewAdapter = new CategoriesAdapter(this);
+        mCategroiesRv.setLayoutManager(new GridLayoutManager(this, 2));
+        mCategroiesRv.setAdapter(mRecyelerViewAdapter);
     }
 
     @Override
