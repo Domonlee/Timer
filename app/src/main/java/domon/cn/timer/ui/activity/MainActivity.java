@@ -1,4 +1,4 @@
-package domon.cn.timer;
+package domon.cn.timer.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,9 +11,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.orhanobut.logger.Logger;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import domon.cn.timer.App;
+import domon.cn.timer.data.CategoriesData;
+import domon.cn.timer.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,11 +40,7 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
-        String[] categroyNames = new String[]{"读书", "休息", "零食", "运动", "吃饭", "睡觉", "学习", "散步", "呼吸", "工作"};
-        for (int i = 0; i < categroyNames.length; i++) {
-            CategoriesData categoriesData = new CategoriesData(categroyNames[i]);
-            App.liteOrm.save(categoriesData);
-        }
+        initCategoriesDataBase();
 
         setSupportActionBar(toolbar);
 
@@ -51,6 +52,18 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initCategoriesDataBase() {
+        long count = App.liteOrm.queryCount(CategoriesData.class);
+        if (count == 0) {
+            String[] categroyNames = new String[]{"读书", "休息", "零食", "运动", "吃饭", "睡觉", "学习", "散步", "呼吸", "工作"};
+            for (int i = 0; i < categroyNames.length; i++) {
+                CategoriesData categoriesData = new CategoriesData(categroyNames[i]);
+                App.liteOrm.save(categoriesData);
+                Logger.i("add categories");
+            }
+        }
     }
 
     @Override

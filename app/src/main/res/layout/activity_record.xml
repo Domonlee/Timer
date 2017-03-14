@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#237EAD"
-    tools:context="domon.cn.timer.RecordActivity">
+    tools:context="domon.cn.timer.ui.activity.RecordActivity">
 
     <ImageView
         android:id="@+id/record_cancel_iv"

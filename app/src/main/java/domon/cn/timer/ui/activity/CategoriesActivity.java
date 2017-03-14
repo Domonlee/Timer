@@ -1,4 +1,4 @@
-package domon.cn.timer;
+package domon.cn.timer.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import domon.cn.timer.ui.adapter.CategoriesAdapter;
+import domon.cn.timer.R;
 
 public class CategoriesActivity extends AppCompatActivity {
     @Bind(R.id.categroy_rv)

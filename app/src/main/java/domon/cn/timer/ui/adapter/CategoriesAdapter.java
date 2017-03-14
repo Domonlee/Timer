@@ -1,4 +1,4 @@
-package domon.cn.timer;
+package domon.cn.timer.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +17,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import domon.cn.timer.App;
+import domon.cn.timer.data.CategoriesData;
+import domon.cn.timer.R;
 
 /**
  * Created by Domon on 2017/3/12.

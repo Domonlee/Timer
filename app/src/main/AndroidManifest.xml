@@ -3,7 +3,7 @@
     package="domon.cn.timer">
 
     <application
-        android:name=".App"
+        android:name="domon.cn.timer.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="domon.cn.timer.ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,13 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RecordActivity"
+            android:name="domon.cn.timer.ui.activity.RecordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".RecordSaveActivity"
+            android:name=".ui.activity.RecordSaveActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CategoriesActivity"
+            android:name=".ui.activity.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
     </application>

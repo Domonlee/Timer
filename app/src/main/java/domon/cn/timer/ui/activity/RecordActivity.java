@@ -1,4 +1,4 @@
-package domon.cn.timer;
+package domon.cn.timer.ui.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +19,7 @@ import java.util.TimerTask;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import domon.cn.timer.R;
 
 /**
  * 记录时间界面

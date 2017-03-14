@@ -3,21 +3,28 @@ package domon.cn.timer;
 import android.app.Application;
 
 import com.litesuits.orm.LiteOrm;
+import com.orhanobut.logger.LogLevel;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by Domon on 2017/3/13.
  */
 
 public class App extends Application {
-    static LiteOrm liteOrm;
+    public static LiteOrm liteOrm;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         if (liteOrm == null) {
             liteOrm = LiteOrm.newCascadeInstance(this, "test.db");
         }
 
-        liteOrm.setDebugged(true);
+        Logger.init("Timer")
+                .methodCount(3)
+                .hideThreadInfo()
+                .logLevel(LogLevel.FULL)
+                .methodOffset(2);
     }
 }

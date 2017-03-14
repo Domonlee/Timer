@@ -1,4 +1,4 @@
-package domon.cn.timer;
+package domon.cn.timer.ui.view;
 
 import android.animation.PropertyValuesHolder;
 import android.animation.TimeInterpolator;
@@ -19,6 +19,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Calendar;
+
+import domon.cn.timer.R;
+import domon.cn.timer.utils.DensityUtils;
 
 /**
  * 仿小米时钟

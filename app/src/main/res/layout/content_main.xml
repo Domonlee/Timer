@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="domon.cn.timer.MainActivity"
+    tools:context="domon.cn.timer.ui.activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <RelativeLayout
@@ -13,7 +13,7 @@
         android:layout_marginTop="48dp"
         android:background="#237EAD">
 
-        <domon.cn.timer.MiClockView
+        <domon.cn.timer.ui.view.MiClockView
             android:id="@+id/clock_view"
             android:layout_width="match_parent"
             android:layout_height="300dp"

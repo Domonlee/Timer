@@ -1,4 +1,4 @@
-package domon.cn.timer;
+package domon.cn.timer.ui.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +14,7 @@ import com.orhanobut.logger.Logger;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import domon.cn.timer.R;
 
 public class RecordSaveActivity extends AppCompatActivity {
     private String mRecordTime;

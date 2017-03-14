@@ -1,4 +1,4 @@
-package domon.cn.timer;
+package domon.cn.timer.data;
 
 import com.litesuits.orm.db.annotation.NotNull;
 import com.litesuits.orm.db.annotation.PrimaryKey;

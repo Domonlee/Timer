@@ -1,4 +1,4 @@
-package domon.cn.timer;
+package domon.cn.timer.utils;
 
 import android.content.Context;
 import android.util.TypedValue;
