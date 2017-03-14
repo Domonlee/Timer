@@ -35,6 +35,12 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
+        String[] categroyNames = new String[]{"读书", "休息", "零食", "运动", "吃饭", "睡觉", "学习", "散步", "呼吸", "工作"};
+        for (int i = 0; i < categroyNames.length; i++) {
+            CategoriesData categoriesData = new CategoriesData(categroyNames[i]);
+            App.liteOrm.save(categoriesData);
+        }
+
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

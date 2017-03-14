@@ -12,6 +12,9 @@ import com.robertlevonyan.views.chip.Chip;
 import com.robertlevonyan.views.chip.OnChipClickListener;
 import com.robertlevonyan.views.chip.OnSelectClickListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -22,11 +25,12 @@ import butterknife.ButterKnife;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.BaseViewHolder> {
     private Context context;
-    private String[] categroyNames = new String[]{"读书", "休息", "零食", "运动", "吃饭", "睡觉", "学习", "散步", "呼吸", "工作"};
+    private List<CategoriesData> categroyNames = new ArrayList<>();
 
 
     public CategoriesAdapter(Context context) {
         this.context = context;
+        categroyNames = App.liteOrm.query(CategoriesData.class);
     }
 
     @Override
@@ -40,7 +44,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ba
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        holder.chip.setChipText(categroyNames[position]);
+        holder.chip.setChipText(categroyNames.get(position).getName());
     }
 
     @Override
