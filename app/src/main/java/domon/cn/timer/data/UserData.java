@@ -9,23 +9,23 @@ import com.litesuits.orm.db.enums.AssignType;
  * Created by Domon on 2017/3/14.
  */
 
-@Table("categories_table")
-public class CategoriesData {
+@Table("user_table")
+public class UserData {
     @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int id;
 
     @NotNull
-    private String name;
+    private String imei;
 
-    public CategoriesData(String name) {
-        this.name = name;
+    public UserData(String imei) {
+        this.imei = imei;
     }
 
-    public String getName() {
-        return name;
+    public String getImei() {
+        return imei;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 }
