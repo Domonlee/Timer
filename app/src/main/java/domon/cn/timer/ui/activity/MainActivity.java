@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -17,8 +18,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import domon.cn.timer.App;
-import domon.cn.timer.data.CategoriesData;
 import domon.cn.timer.R;
+import domon.cn.timer.data.CategoriesData;
+import domon.cn.timer.data.UserData;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
-        initCategoriesDataBase();
+        initDataBase();
 
         setSupportActionBar(toolbar);
 
@@ -54,7 +56,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void initCategoriesDataBase() {
+    private void initDataBase() {
+        initCategroyDb();
+        initUserDb();
+    }
+
+    private void initCategroyDb() {
         long count = App.liteOrm.queryCount(CategoriesData.class);
         if (count == 0) {
             String[] categroyNames = new String[]{"读书", "休息", "零食", "运动", "吃饭", "睡觉", "学习", "散步", "呼吸", "工作"};
@@ -63,6 +70,15 @@ public class MainActivity extends AppCompatActivity
                 App.liteOrm.save(categoriesData);
                 Logger.i("add categories");
             }
+        }
+    }
+
+    private void initUserDb() {
+        long count = App.liteOrm.queryCount(UserData.class);
+        if (count == 0) {
+            String imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
+            App.liteOrm.save(new UserData(imei));
+            Logger.i("add user");
         }
     }
 
