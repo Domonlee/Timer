@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.litesuits.orm.db.assit.QueryBuilder;
 import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
@@ -75,10 +76,13 @@ public class MainActivity extends AppCompatActivity
 
     private void initUserDb() {
         long count = App.liteOrm.queryCount(UserData.class);
+        String imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
         if (count == 0) {
-            String imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
             App.liteOrm.save(new UserData(imei));
             Logger.i("add user");
+        } else {
+            Logger.i(App.liteOrm.query(
+                    new QueryBuilder<UserData>(UserData.class).where(UserData.COL_IMEI + "=?", imei)).toString());
         }
     }
 
