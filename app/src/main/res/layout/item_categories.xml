@@ -10,12 +10,10 @@
         android:id="@+id/item_chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundColor="#b13c3c"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        app:backgroundColor="#b13c3c"
         app:chipIcon="@mipmap/ic_launcher_round"
-        app:hasIcon="true"
-        app:selectable="true"
-        app:selectedBackgroundColor="#3ee" />
+        app:hasIcon="true" />
 
 </LinearLayout>

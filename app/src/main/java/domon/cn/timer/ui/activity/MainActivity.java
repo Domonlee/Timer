@@ -1,5 +1,7 @@
 package domon.cn.timer.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,7 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.litesuits.orm.db.assit.QueryBuilder;
 import com.orhanobut.logger.Logger;
@@ -31,9 +35,21 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.start_btn)
     Button mStartBtn;
 
+    @Bind(R.id.main_record_tv)
+    TextView mRecordTimeTv;
+
     @OnClick(R.id.start_btn)
     void onClickStartBtn() {
         RecordActivity.actionStart(this);
+    }
+
+    public static void actionStart(Context context, String recordTime, String categoryName, boolean isShow) {
+        Intent i = new Intent(context, MainActivity.class);
+        i.putExtra("recordTime", recordTime);
+        i.putExtra("categoryName", categoryName);
+        i.putExtra("isShow", isShow);
+        context.startActivity(i);
+        Logger.e(recordTime + "+" + categoryName);
     }
 
     @Override
@@ -42,6 +58,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        if (getIntent().getBooleanExtra("isShow", false)) {
+            Logger.e("");
+            mRecordTimeTv.setVisibility(View.VISIBLE);
+            mRecordTimeTv.setText(getIntent().getStringExtra("categoryName") + " -- " + getIntent().getStringExtra("recordTime"));
+        }
 
         initDataBase();
 

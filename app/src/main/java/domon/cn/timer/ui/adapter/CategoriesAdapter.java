@@ -5,12 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.orhanobut.logger.Logger;
 import com.robertlevonyan.views.chip.Chip;
 import com.robertlevonyan.views.chip.OnChipClickListener;
-import com.robertlevonyan.views.chip.OnSelectClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +15,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import domon.cn.timer.App;
-import domon.cn.timer.data.CategoriesData;
 import domon.cn.timer.R;
+import domon.cn.timer.data.CategoriesData;
+import domon.cn.timer.ui.activity.MainActivity;
 
 /**
  * Created by Domon on 2017/3/12.
@@ -29,11 +27,13 @@ import domon.cn.timer.R;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.BaseViewHolder> {
     private Context context;
     private List<CategoriesData> categroyNames = new ArrayList<>();
+    private String recordTime;
 
 
-    public CategoriesAdapter(Context context) {
+    public CategoriesAdapter(Context context, String recordTime) {
         this.context = context;
         categroyNames = App.liteOrm.query(CategoriesData.class);
+        this.recordTime = recordTime;
     }
 
     @Override
@@ -59,22 +59,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ba
         @Bind(R.id.item_chip)
         Chip chip;
 
-        public BaseViewHolder(View itemView) {
+        public BaseViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
             chip.setOnChipClickListener(new OnChipClickListener() {
                 @Override
                 public void onChipClick(View v) {
-                    Toast.makeText(context, "Good", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            chip.setOnSelectClickListener(new OnSelectClickListener() {
-                @Override
-                public void onSelectClick(View v, boolean selected) {
-                    Logger.i("select");
-
+                    MainActivity.actionStart(context, recordTime, chip.getChipText(), true);
                 }
             });
         }

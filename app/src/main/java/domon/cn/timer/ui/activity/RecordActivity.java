@@ -25,7 +25,6 @@ import domon.cn.timer.R;
  * 记录时间界面
  *
  * @author Domon
- *         todo alert close
  */
 
 public class RecordActivity extends AppCompatActivity {
@@ -164,6 +163,10 @@ public class RecordActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
 
+    @Override
+    public void onBackPressed() {
+        showAlert();
     }
 }
