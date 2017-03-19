@@ -15,9 +15,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import domon.cn.timer.R;
+import domon.cn.timer.data.Config;
 
 public class RecordSaveActivity extends AppCompatActivity {
     private String mRecordTime;
+    private String mCategoryName;
 
     @Bind(R.id.save_tags_tv)
     TextView mTagsTv;
@@ -34,6 +36,8 @@ public class RecordSaveActivity extends AppCompatActivity {
     @OnClick(R.id.save_submit_iv)
     void onClickSubmit() {
         Logger.i("Submit Times");
+        //// TODO: 2017/3/18 need add data to db
+
         finish();
     }
 
@@ -43,9 +47,14 @@ public class RecordSaveActivity extends AppCompatActivity {
     }
 
 
-    public static void actionStart(Context context, String recordTimeStr) {
+    public static void actionStart(Context context) {
         Intent i = new Intent(context, RecordSaveActivity.class);
-        i.putExtra("RecordTime", recordTimeStr);
+        context.startActivity(i);
+    }
+
+    public static void actionGetCategoryName(Context context, String categoryName) {
+        Intent i = new Intent(context, RecordSaveActivity.class);
+        i.putExtra("categoryName", categoryName);
         context.startActivity(i);
     }
 
@@ -56,8 +65,12 @@ public class RecordSaveActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Intent i = getIntent();
-        mRecordTime = i.getStringExtra("RecordTime");
+        mRecordTime = Config.getRecordTime();
+
+        if (getIntent().getStringExtra("categoryName") != null) {
+            mCategoryName = getIntent().getStringExtra("categoryName");
+            mTagsTv.setText(mCategoryName);
+        }
 
         mTimeTv.setText(mRecordTime);
     }

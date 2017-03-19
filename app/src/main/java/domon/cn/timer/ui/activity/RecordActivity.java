@@ -20,6 +20,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import domon.cn.timer.R;
+import domon.cn.timer.data.Config;
 
 /**
  * 记录时间界面
@@ -57,9 +58,9 @@ public class RecordActivity extends AppCompatActivity {
 
     @OnClick(R.id.record_finish_iv)
     void onClickFinish() {
-        Logger.d(mCount);
         Toast.makeText(this, getTime(mCount), Toast.LENGTH_LONG).show();
-        RecordSaveActivity.actionStart(RecordActivity.this, getTime(mCount));
+        Config.setRecordTime(getTime(mCount));
+        RecordSaveActivity.actionStart(RecordActivity.this);
         stopTimer();
         finish();
     }
