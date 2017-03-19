@@ -14,8 +14,10 @@ import com.orhanobut.logger.Logger;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import domon.cn.timer.App;
 import domon.cn.timer.R;
 import domon.cn.timer.data.Config;
+import domon.cn.timer.data.RecordData;
 
 public class RecordSaveActivity extends AppCompatActivity {
     private String mRecordTime;
@@ -30,13 +32,22 @@ public class RecordSaveActivity extends AppCompatActivity {
 
     @OnClick(R.id.save_tags_tv)
     void onClickTags() {
-        CategoriesActivity.actionStart(RecordSaveActivity.this, mRecordTime);
+        CategoriesActivity.actionStart(RecordSaveActivity.this);
     }
 
     @OnClick(R.id.save_submit_iv)
     void onClickSubmit() {
         Logger.i("Submit Times");
-        //// TODO: 2017/3/18 need add data to db
+        //// TODO: 2017/3/18 need add date to db
+        RecordData recordData = new RecordData(
+                Config.getUserImei(),
+                Config.getCategoryName(),
+                Config.getRecordTime(),
+                //
+                "20170120"
+        );
+
+        App.liteOrm.save(recordData);
 
         finish();
     }
@@ -52,10 +63,12 @@ public class RecordSaveActivity extends AppCompatActivity {
         context.startActivity(i);
     }
 
-    public static void actionGetCategoryName(Context context, String categoryName) {
-        Intent i = new Intent(context, RecordSaveActivity.class);
-        i.putExtra("categoryName", categoryName);
-        context.startActivity(i);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Config.getCategoryName() != null) {
+            mTagsTv.setText(Config.getCategoryName());
+        }
     }
 
     @Override
@@ -66,10 +79,8 @@ public class RecordSaveActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mRecordTime = Config.getRecordTime();
-
-        if (getIntent().getStringExtra("categoryName") != null) {
-            mCategoryName = getIntent().getStringExtra("categoryName");
-            mTagsTv.setText(mCategoryName);
+        if (Config.getCategoryName() != null) {
+            mTagsTv.setText(Config.getCategoryName());
         }
 
         mTimeTv.setText(mRecordTime);

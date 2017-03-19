@@ -16,11 +16,9 @@ public class CategoriesActivity extends AppCompatActivity {
     @Bind(R.id.categroy_rv)
     RecyclerView mCategroiesRv;
     private CategoriesAdapter mRecyelerViewAdapter;
-    private String mRecordTime;
 
-    public static void actionStart(Context context, String recordTime) {
+    public static void actionStart(Context context) {
         Intent i = new Intent(context, CategoriesActivity.class);
-        i.putExtra("recordTime", recordTime);
         context.startActivity(i);
     }
 
@@ -30,13 +28,10 @@ public class CategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
 
         ButterKnife.bind(this);
-        mRecordTime = this.getIntent().getStringExtra("recordTime");
 
-
-        mRecyelerViewAdapter = new CategoriesAdapter(this, mRecordTime);
-        mCategroiesRv.setLayoutManager(new GridLayoutManager(this, 2));
+        mRecyelerViewAdapter = new CategoriesAdapter(this);
+        mCategroiesRv.setLayoutManager(new GridLayoutManager(this, 3));
         mCategroiesRv.setAdapter(mRecyelerViewAdapter);
-
     }
 
     @Override

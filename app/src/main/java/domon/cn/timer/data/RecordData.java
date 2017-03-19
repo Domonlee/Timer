@@ -15,10 +15,10 @@ public class RecordData {
     private int id;
 
     @NotNull
-    private int user_id;
+    private String user_imei;
 
     @NotNull
-    private int categroy_id;
+    private String categroy_name;
 
     @NotNull
     private String record_time;
@@ -26,27 +26,27 @@ public class RecordData {
     @NotNull
     private String record_date;
 
-    public RecordData(int user_id, int categroy_id, String record_time, String record_date) {
-        this.user_id = user_id;
-        this.categroy_id = categroy_id;
+    public RecordData(String user_imei, String categroy_name, String record_time, String record_date) {
+        this.user_imei = user_imei;
         this.record_time = record_time;
+        this.categroy_name = categroy_name;
         this.record_date = record_date;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public String getUser_imei() {
+        return user_imei;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser_imei(String user_imei) {
+        this.user_imei = user_imei;
     }
 
-    public int getCategroy_id() {
-        return categroy_id;
+    public String getCategroy_name() {
+        return categroy_name;
     }
 
-    public void setCategroy_id(int categroy_id) {
-        this.categroy_id = categroy_id;
+    public void setCategroy_name(String categroy_name) {
+        this.categroy_name = categroy_name;
     }
 
     public String getRecord_time() {

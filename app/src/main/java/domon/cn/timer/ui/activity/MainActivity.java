@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.litesuits.orm.db.assit.QueryBuilder;
 import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
@@ -25,7 +24,7 @@ import butterknife.OnClick;
 import domon.cn.timer.App;
 import domon.cn.timer.R;
 import domon.cn.timer.data.CategoriesData;
-import domon.cn.timer.data.UserData;
+import domon.cn.timer.data.Config;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,6 +40,9 @@ public class MainActivity extends AppCompatActivity
     @OnClick(R.id.start_btn)
     void onClickStartBtn() {
         RecordActivity.actionStart(this);
+        if (Config.getCategoryName() != null) {
+            Config.setCategoryName(null);
+        }
     }
 
     public static void actionStart(Context context, String recordTime, String categoryName, boolean isShow) {
@@ -97,15 +99,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initUserDb() {
-        long count = App.liteOrm.queryCount(UserData.class);
+//        long count = App.liteOrm.queryCount(UserData.class);
         String imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
-        if (count == 0) {
-            App.liteOrm.save(new UserData(imei));
-            Logger.i("add user");
-        } else {
-            Logger.i(App.liteOrm.query(
-                    new QueryBuilder<UserData>(UserData.class).where(UserData.COL_IMEI + "=?", imei)).toString());
-        }
+        Config.setUserImei(imei);
+
+//        if (count == 0) {
+//            App.liteOrm.save(new UserData(imei));
+//            Logger.i("add user");
+//        } else {
+//            Logger.i(App.liteOrm.query(
+//                    new QueryBuilder<UserData>(UserData.class).where(UserData.COL_IMEI + "=?", imei)).toString());
+//        }
     }
 
     @Override

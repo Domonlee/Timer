@@ -1,5 +1,6 @@
 package domon.cn.timer.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
 import domon.cn.timer.App;
 import domon.cn.timer.R;
 import domon.cn.timer.data.CategoriesData;
-import domon.cn.timer.ui.activity.MainActivity;
+import domon.cn.timer.data.Config;
 
 /**
  * Created by Domon on 2017/3/12.
@@ -27,13 +28,10 @@ import domon.cn.timer.ui.activity.MainActivity;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.BaseViewHolder> {
     private Context context;
     private List<CategoriesData> categroyNames = new ArrayList<>();
-    private String recordTime;
 
-
-    public CategoriesAdapter(Context context, String recordTime) {
+    public CategoriesAdapter(Context context) {
         this.context = context;
         categroyNames = App.liteOrm.query(CategoriesData.class);
-        this.recordTime = recordTime;
     }
 
     @Override
@@ -52,7 +50,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ba
 
     @Override
     public int getItemCount() {
-        return 7;
+        return (int) App.liteOrm.queryCount(CategoriesData.class);
     }
 
     class BaseViewHolder extends RecyclerView.ViewHolder {
@@ -66,7 +64,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ba
             chip.setOnChipClickListener(new OnChipClickListener() {
                 @Override
                 public void onChipClick(View v) {
-                    MainActivity.actionStart(context, recordTime, chip.getChipText(), true);
+//                    RecordSaveActivity.actionStart(context);
+                    Config.setCategoryName(chip.getChipText());
+                    ((Activity) context).finish();
                 }
             });
         }
