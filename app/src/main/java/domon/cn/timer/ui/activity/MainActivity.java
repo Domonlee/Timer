@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -49,12 +48,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
-        if (getIntent().getBooleanExtra("isShow", false)) {
-            Logger.e("");
-            mRecordTimeTv.setVisibility(View.VISIBLE);
-            mRecordTimeTv.setText(getIntent().getStringExtra("categoryName") + " -- " + getIntent().getStringExtra("recordTime"));
-        }
 
         initDataBase();
 

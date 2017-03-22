@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,8 +46,7 @@ public class RecordSaveActivity extends AppCompatActivity {
                 Config.getUserImei(),
                 Config.getCategoryName(),
                 Config.getRecordTime(),
-                //
-                "20170120"
+                getTodayDate()
         );
 
         App.liteOrm.save(recordData);
@@ -101,6 +103,11 @@ public class RecordSaveActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private String getTodayDate() {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+        return sf.format(date);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
