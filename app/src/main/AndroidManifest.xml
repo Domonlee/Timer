@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="domon.cn.timer.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="domon.cn.timer.ui.activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="domon.cn.timer.ui.activity.RecordActivity"
+            android:name=".ui.activity.RecordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.RecordSaveActivity"
@@ -31,6 +31,10 @@
         <activity
             android:name=".ui.activity.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".ui.activity.StatisticalActivity"
+            android:label="@string/title_activity_statistical"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
+
 </manifest>

@@ -41,7 +41,6 @@ public class RecordSaveActivity extends AppCompatActivity {
     @OnClick(R.id.save_submit_iv)
     void onClickSubmit() {
         Logger.i("Submit Times");
-        //// TODO: 2017/3/18 need add date to db
         RecordData recordData = new RecordData(
                 Config.getUserImei(),
                 Config.getCategoryName(),
