@@ -2,6 +2,7 @@ package domon.cn.timer;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.litesuits.orm.LiteOrm;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
@@ -30,5 +31,7 @@ public class App extends Application {
                 .methodOffset(2);
 
         PreferencesUtils.initPreferences(this);
+
+        Stetho.initializeWithDefaults(this);
     }
 }

@@ -1,7 +1,5 @@
 package domon.cn.timer.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -45,15 +43,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public static void actionStart(Context context, String recordTime, String categoryName, boolean isShow) {
-        Intent i = new Intent(context, MainActivity.class);
-        i.putExtra("recordTime", recordTime);
-        i.putExtra("categoryName", categoryName);
-        i.putExtra("isShow", isShow);
-        context.startActivity(i);
-        Logger.e(recordTime + "+" + categoryName);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initDataBase() {
         initCategroyDb();
-        initUserDb();
+        setUserImei();
     }
 
     private void initCategroyDb() {
@@ -98,18 +87,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void initUserDb() {
-//        long count = App.liteOrm.queryCount(UserData.class);
+    private void setUserImei() {
         String imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE)).getDeviceId();
         Config.setUserImei(imei);
-
-//        if (count == 0) {
-//            App.liteOrm.save(new UserData(imei));
-//            Logger.i("add user");
-//        } else {
-//            Logger.i(App.liteOrm.query(
-//                    new QueryBuilder<UserData>(UserData.class).where(UserData.COL_IMEI + "=?", imei)).toString());
-//        }
     }
 
     @Override
