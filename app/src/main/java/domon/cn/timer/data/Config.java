@@ -40,12 +40,12 @@ public class Config {
         PreferencesUtils.setStringValue("category_name", categoryName);
     }
 
-    public static String getRecordTime() {
-        return PreferencesUtils.getStringValue("record_time");
+    public static int getRecordTime() {
+        return PreferencesUtils.getIntegerValue("record_time");
     }
 
-    public static void setRecordTime(String recordTime) {
-        PreferencesUtils.setStringValue("record_time", recordTime);
+    public static void setRecordTime(int recordTime) {
+        PreferencesUtils.setIntegerValue("record_time", recordTime);
     }
 
 }

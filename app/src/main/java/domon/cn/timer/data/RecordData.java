@@ -21,12 +21,12 @@ public class RecordData {
     private String categroy_name;
 
     @NotNull
-    private String record_time;
+    private int record_time;
 
     @NotNull
     private String record_date;
 
-    public RecordData(String user_imei, String categroy_name, String record_time, String record_date) {
+    public RecordData(String user_imei, String categroy_name, int record_time, String record_date) {
         this.user_imei = user_imei;
         this.record_time = record_time;
         this.categroy_name = categroy_name;
@@ -49,11 +49,11 @@ public class RecordData {
         this.categroy_name = categroy_name;
     }
 
-    public String getRecord_time() {
+    public int getRecord_time() {
         return record_time;
     }
 
-    public void setRecord_time(String record_time) {
+    public void setRecord_time(int record_time) {
         this.record_time = record_time;
     }
 

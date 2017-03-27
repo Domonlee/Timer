@@ -21,6 +21,7 @@ import domon.cn.timer.App;
 import domon.cn.timer.R;
 import domon.cn.timer.data.Config;
 import domon.cn.timer.data.RecordData;
+import domon.cn.timer.utils.CommonUtils;
 
 public class RecordSaveActivity extends AppCompatActivity {
     private String mRecordTime;
@@ -79,7 +80,7 @@ public class RecordSaveActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mRecordTime = Config.getRecordTime();
+        mRecordTime = CommonUtils.formatTime(Config.getRecordTime());
         if (Config.getCategoryName() != null) {
             mTagsTv.setText(Config.getCategoryName());
         }
@@ -107,6 +108,7 @@ public class RecordSaveActivity extends AppCompatActivity {
         SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
         return sf.format(date);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

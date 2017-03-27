@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
 
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import domon.cn.timer.R;
 import domon.cn.timer.data.Config;
+import domon.cn.timer.utils.CommonUtils;
 
 /**
  * 记录时间界面
@@ -58,8 +58,8 @@ public class RecordActivity extends AppCompatActivity {
 
     @OnClick(R.id.record_finish_iv)
     void onClickFinish() {
-        Toast.makeText(this, getTime(mCount), Toast.LENGTH_LONG).show();
-        Config.setRecordTime(getTime(mCount));
+        Toast.makeText(this, CommonUtils.formatTime(mCount), Toast.LENGTH_LONG).show();
+        Config.setRecordTime(mCount);
         RecordSaveActivity.actionStart(RecordActivity.this);
         stopTimer();
         finish();
@@ -101,7 +101,7 @@ public class RecordActivity extends AppCompatActivity {
                         public void run() {
                             if (!isPause) {
                                 mCount++;
-                                mTimerTv.setText(getTime(mCount));
+                                mTimerTv.setText(CommonUtils.formatTime(mCount));
                             }
                         }
                     });
@@ -126,17 +126,6 @@ public class RecordActivity extends AppCompatActivity {
             mTimerTask = null;
         }
         mCount = 0;
-    }
-
-    private String getTime(int count) {
-        int hour = count / 3600;
-        int min = count % 3600 / 60;
-        int second = count % 60;
-        if (hour == 0) {
-            return String.format(Locale.CHINA, "%02d:%02d", min, second);
-        } else {
-            return String.format(Locale.CHINA, "%02d:%02d:%02d", hour, min, second);
-        }
     }
 
     @Override
