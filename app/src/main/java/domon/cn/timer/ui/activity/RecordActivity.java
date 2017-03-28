@@ -1,10 +1,8 @@
 package domon.cn.timer.ui.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,7 +66,7 @@ public class RecordActivity extends AppCompatActivity {
 
     @OnClick(R.id.record_cancel_iv)
     void onClickCancel() {
-        showAlert();
+        CommonUtils.showAlert(this);
         onClickStart();
     }
 
@@ -135,28 +133,8 @@ public class RecordActivity extends AppCompatActivity {
         stopTimer();
     }
 
-    private void showAlert() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("确认退出嘛？");
-        builder.setMessage("您打算放弃本次记录嘛？");
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                onClickStart();
-            }
-        });
-        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
-            }
-        });
-
-        builder.show();
-    }
-
     @Override
     public void onBackPressed() {
-        showAlert();
+        CommonUtils.showAlert(this);
     }
 }
