@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,10 @@ import domon.cn.timer.utils.CommonUtils;
  * todo can't show the newest record
  */
 
-public class StatisticalAdapter extends RecyclerView.Adapter<StatisticalAdapter.BaseViewHolder> {
+public class StatisticalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public static final int ITEM_TYPE_HEADER = 0;
+    public static final int ITEM_TYPE_INFO = 1;
+
     private Context context;
     private List<RecordData> recordDatas = new ArrayList<>();
 
@@ -35,51 +36,60 @@ public class StatisticalAdapter extends RecyclerView.Adapter<StatisticalAdapter.
     }
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater i = LayoutInflater.from(context);
-        View view = i.inflate(R.layout.item_total_record, parent, false);
-        BaseViewHolder viewHolder = new BaseViewHolder(view);
-
-        return viewHolder;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == ITEM_TYPE_HEADER) {
+            return new HeaderViewHolder(LayoutInflater.from(context)
+                    .inflate(R.layout.statistical_header_main, parent, false));
+        } else {
+            return new InfoViewHolder(LayoutInflater.from(context)
+                    .inflate(R.layout.item_total_record, parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
-        if (position == 0) {
+    public int getItemViewType(int position) {
+        return position == 0 ? ITEM_TYPE_HEADER : ITEM_TYPE_INFO;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof HeaderViewHolder) {
+            HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             int s = 0;
-            holder.hearderLl.setVisibility(View.VISIBLE);
             for (int i = 0; i < recordDatas.size(); i++) {
                 s += recordDatas.get(i).getRecord_time();
             }
-            Logger.e(s + "");
-            holder.totalTimeTv.setText(CommonUtils.formatTime(s));
-            holder.infoLl.setVisibility(View.GONE);
-        } else {
-            holder.hearderLl.setVisibility(View.GONE);
-            holder.infoLl.setVisibility(View.VISIBLE);
-            holder.infoTv.setText(recordDatas.get(position - 1).getCategroy_name() + "--"
-                    + CommonUtils.formatTime(recordDatas.get(position - 1).getRecord_time()));
+            headerViewHolder.totalTimeTv.setText(CommonUtils.formatTime(s));
+        } else if (holder instanceof InfoViewHolder) {
+            InfoViewHolder infoViewHolder = (InfoViewHolder) holder;
+            infoViewHolder.infoTv.setText(recordDatas.get(position).getCategroy_name() + "--"
+                    + CommonUtils.formatTime(recordDatas.get(position).getRecord_time()));
         }
     }
 
     @Override
     public int getItemCount() {
-        return (int) App.liteOrm.queryCount(RecordData.class);
+        return recordDatas == null ? 0 : (int) App.liteOrm.queryCount(RecordData.class);
     }
 
-    class BaseViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.statistical_header)
-        View hearderLl;
-        @Bind(R.id.totaltime_tv)
-        TextView totalTimeTv;
-
+    class InfoViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.statistical_info_ll)
         LinearLayout infoLl;
 
         @Bind(R.id.info_title_tv)
         TextView infoTv;
 
-        public BaseViewHolder(final View itemView) {
+        public InfoViewHolder(final View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    class HeaderViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.totaltime_tv)
+        TextView totalTimeTv;
+
+        public HeaderViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

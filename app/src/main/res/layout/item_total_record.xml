@@ -5,9 +5,9 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/statistical_header"
-        layout="@layout/statistical_header_main" />
+    <!--<include-->
+    <!--android:id="@+id/statistical_header"-->
+    <!--layout="@layout/statistical_header_main" />-->
 
     <LinearLayout
         android:id="@+id/statistical_info_ll"
