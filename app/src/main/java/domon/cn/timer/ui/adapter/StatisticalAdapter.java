@@ -62,14 +62,14 @@ public class StatisticalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             headerViewHolder.totalTimeTv.setText(CommonUtils.formatTime(s));
         } else if (holder instanceof InfoViewHolder) {
             InfoViewHolder infoViewHolder = (InfoViewHolder) holder;
-            infoViewHolder.infoTv.setText(recordDatas.get(position).getCategroy_name() + "--"
-                    + CommonUtils.formatTime(recordDatas.get(position).getRecord_time()));
+            infoViewHolder.infoTv.setText(recordDatas.get(position - 1).getCategroy_name() + "--"
+                    + CommonUtils.formatTime(recordDatas.get(position - 1).getRecord_time()));
         }
     }
 
     @Override
     public int getItemCount() {
-        return recordDatas == null ? 0 : (int) App.liteOrm.queryCount(RecordData.class);
+        return recordDatas == null ? 0 : (int) App.liteOrm.queryCount(RecordData.class) + 1;
     }
 
     class InfoViewHolder extends RecyclerView.ViewHolder {
@@ -82,6 +82,14 @@ public class StatisticalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public InfoViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            infoLl.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
         }
     }
 
