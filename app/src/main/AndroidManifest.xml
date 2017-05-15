@@ -35,6 +35,9 @@
             android:name=".ui.activity.StatisticalActivity"
             android:label="@string/title_activity_statistical"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

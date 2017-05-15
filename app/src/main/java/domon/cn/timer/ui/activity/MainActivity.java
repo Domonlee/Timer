@@ -66,6 +66,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.getMenu().getItem(0).setChecked(true);
+    }
+
     private void initDataBase() {
         initCategroyDb();
         setUserImei();
@@ -114,7 +120,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_statistical) {
             StatisticalActivity.actionStart(this);
         } else if (id == R.id.nav_setting) {
-
+            SettingActivity.actionStart(this);
         }
 
         drawer.closeDrawer(GravityCompat.START);
