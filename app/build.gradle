@@ -75,4 +75,5 @@ dependencies {
     compile 'com.robertlevonyan.view:MaterialChipView:1.0.0'
     compile 'com.facebook.stetho:stetho:1.4.2'
     testCompile 'junit:junit:4.12'
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
 }
