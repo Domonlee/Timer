@@ -28,6 +28,18 @@ import domon.cn.timer.data.Config;
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.BaseViewHolder> {
     private Context context;
     private List<CategoriesData> categroyNames = new ArrayList<>();
+    private int[] ints = {
+            R.color.categoryRead,
+            R.color.categoryRest,
+            R.color.categorySnacks,
+            R.color.categorySport,
+            R.color.categoryEat,
+            R.color.categorySleep,
+            R.color.categoryStudy,
+            R.color.categoryWalk,
+            R.color.categoryBreath,
+            R.color.categoryWork
+    };
 
     public CategoriesAdapter(Context context) {
         this.context = context;
@@ -46,6 +58,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ba
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         holder.chip.setChipText(categroyNames.get(position).getName());
+        holder.chip.changeBackgroundColor(context.getResources().getColor(ints[position]));
     }
 
     @Override
