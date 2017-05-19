@@ -80,7 +80,17 @@ public class MainActivity extends AppCompatActivity
     private void initCategroyDb() {
         long count = App.liteOrm.queryCount(CategoriesData.class);
         if (count == 0) {
-            String[] categroyNames = new String[]{"读书", "休息", "零食", "运动", "吃饭", "睡觉", "学习", "散步", "呼吸", "工作"};
+            String[] categroyNames = new String[]{
+                    getString(R.string.category_read),
+                    getString(R.string.category_rest),
+                    getString(R.string.category_snacks),
+                    getString(R.string.category_sport),
+                    getString(R.string.category_eat),
+                    getString(R.string.category_sleep),
+                    getString(R.string.category_study),
+                    getString(R.string.category_walk),
+                    getString(R.string.category_breath),
+                    getString(R.string.category_work)};
             for (int i = 0; i < categroyNames.length; i++) {
                 CategoriesData categoriesData = new CategoriesData(categroyNames[i]);
                 App.liteOrm.save(categoriesData);

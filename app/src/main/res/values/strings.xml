@@ -6,4 +6,16 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_statistical">StatisticalActivity</string>
+    <string name="category_read">读书</string>
+    <string name="category_rest">休息</string>
+    <string name="category_snacks">零食</string>
+    <string name="category_sport">运动</string>
+    <string name="category_eat">吃饭</string>
+    <string name="category_sleep">睡觉</string>
+    <string name="category_study">学习</string>
+    <string name="category_walk">散步</string>
+    <string name="category_breath">呼吸</string>
+    <string name="category_work">工作</string>
+    <string name="main_start">开始记录</string>
+    <string name="record_select_category">请选择一个分类</string>
 </resources>

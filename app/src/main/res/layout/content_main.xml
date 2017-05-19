@@ -45,9 +45,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="开始记录"
+            android:text="@string/main_start"
             android:textSize="18sp" />
-
-
     </RelativeLayout>
 </RelativeLayout>
